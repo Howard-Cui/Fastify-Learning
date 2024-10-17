@@ -1,4 +1,4 @@
-const items = require("../item");
+const { getItem, getItems } = require("../controllers/ItemsController");
 
 // Item schema
 const itemSchema = {
@@ -19,9 +19,7 @@ const getItemsOpts = {
       },
     },
   },
-  handler: (_req, reply) => {
-    reply.send(items);
-  },
+  handler: getItems,
 };
 
 const getItemOpts = {
@@ -30,10 +28,7 @@ const getItemOpts = {
       200: itemSchema,
     },
   },
-  handler: (req, reply) => {
-    const { id } = req.params;
-    reply.send(items.find((item) => item.id === id));
-  },
+  handler: getItem,
 };
 
 const itemRoutes = (fastify, _options, done) => {
